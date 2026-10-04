@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ tournament.name }}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="top-bar">
+
+            <h1>
+                {{ tournament.name }}
+            </h1>
+
+            <a href="{{ url_for('tournaments') }}">
+                Mis torneos
+            </a>
+
+        </div>
+
+        <p>
+            Creado:
+            {{ tournament.created_at }}
+        </p>
+
+        <p>
+            Participantes:
+            {{ tournament.draw.total_participants }}
+        </p>
+
+        <p>
+            Cuadro principal:
+            {{ tournament.draw.main_bracket_size }}
+        </p>
+
+        <div class="bracket">
+
+            {% if tournament.draw.preliminary_matches %}
+
+                <div class="round">
+
+                    <h3>Ronda previa</h3>
+
+                    <div class="round-matches">
+
+                        {% for match in tournament.draw.preliminary_matches %}
+
+                            <div class="match">
+
+                                <div class="player">
+                                    {{ match.player1 }}
+                                </div>
+
+                                <div class="vs">
+                                    VS
+                                </div>
+
+                                <div class="player">
+                                    {{ match.player2 }}
+                                </div>
+
+                                <div class="match-id">
+                                    {{ match.id }}
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+            {% for round in tournament.draw.rounds %}
+
+                <div class="round">
+
+                    <h3>
+                        {{ round.name }}
+                    </h3>
+
+                    <div class="round-matches">
+
+                        {% for match in round.matches %}
+
+                            <div class="match">
+
+                                <div class="player">
+                                    {{ match.player1 }}
+                                </div>
+
+                                <div class="vs">
+                                    VS
+                                </div>
+
+                                <div class="player">
+                                    {{ match.player2 }}
+                                </div>
+
+                                <div class="match-id">
+                                    {{ match.id }}
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

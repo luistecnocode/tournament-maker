@@ -85,3 +85,74 @@ button {
     font-size: 10px;
     color: #999;
 }
+
+input[type="text"] {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.top-bar a {
+    text-decoration: none;
+}
+
+.error {
+    margin-top: 16px;
+    color: #a40000;
+}
+
+.tournament-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tournament-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 14px;
+    background: #eef1f5;
+    border-radius: 8px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.actions form {
+    margin: 0;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 14px;
+    background: #e2e6eb;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #222;
+}
+
+button.danger {
+    background: #c0392b;
+    color: white;
+    border: none;
+}
+
+.date {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #777;
+}

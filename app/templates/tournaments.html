@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mis torneos</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="top-bar">
+
+            <h1>Mis torneos</h1>
+
+            <a href="{{ url_for('index') }}">
+                Crear torneo
+            </a>
+
+        </div>
+
+        {% if tournaments %}
+
+            <div class="tournament-list">
+
+                {% for tournament in tournaments %}
+
+                    <div class="tournament-item">
+
+                        <div>
+
+                            <strong>
+                                {{ tournament.name }}
+                            </strong>
+
+                            <div class="date">
+                                {{ tournament.created_at }}
+                            </div>
+
+                        </div>
+
+                        <div class="actions">
+
+                            <a
+                                class="button-link"
+                                href="{{ url_for('view_tournament', tournament_id=tournament.id) }}"
+                            >
+                                Abrir
+                            </a>
+
+                            <form
+                                method="post"
+                                action="{{ url_for('remove_tournament', tournament_id=tournament.id) }}"
+                                onsubmit="return confirm('¿Seguro que quieres borrar este torneo?');"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="danger"
+                                >
+                                    Borrar
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>No hay torneos guardados.</p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

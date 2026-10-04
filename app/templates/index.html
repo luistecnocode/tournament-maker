@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Tournament Maker</title>
 
     <link
@@ -19,9 +18,33 @@
 
     <div class="card">
 
-        <h1>Tournament Maker</h1>
+        <div class="top-bar">
+
+            <h1>Tournament Maker</h1>
+
+            <a href="{{ url_for('tournaments') }}">
+                Mis torneos
+            </a>
+
+        </div>
 
         <form method="post">
+
+            <label for="tournament_name">
+                Nombre del torneo
+            </label>
+
+            <br><br>
+
+            <input
+                type="text"
+                id="tournament_name"
+                name="tournament_name"
+                value="{{ tournament_name }}"
+                placeholder="Ej. Torneo 1º Bach"
+            >
+
+            <br><br>
 
             <label for="participants">
                 Participantes
@@ -37,14 +60,28 @@
 
             <br>
 
-            <button type="submit">
+            <button
+                type="submit"
+                name="action"
+                value="draw"
+            >
                 Sortear torneo
+            </button>
+
+            <button
+                type="submit"
+                name="action"
+                value="save"
+            >
+                Sortear y guardar
             </button>
 
         </form>
 
         {% if error %}
-            <p>{{ error }}</p>
+            <p class="error">
+                {{ error }}
+            </p>
         {% endif %}
 
     </div>

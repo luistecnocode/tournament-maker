@@ -1,0 +1,9 @@
+services:
+  tournament-maker:
+    build: .
+    container_name: tournament-maker
+    restart: unless-stopped
+    ports:
+      - "5010:5000"
+    volumes:
+      - ./data:/app/data
