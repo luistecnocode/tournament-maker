@@ -66,7 +66,6 @@
                 {{ draw.main_bracket_size }}
             </p>
 
-
             <div class="bracket">
 
                 {% if draw.preliminary_matches %}
@@ -93,29 +92,6 @@
 
                                 <div class="match-id">
                                     {{ match.id }}
-                                </div>
-
-                            </div>
-
-                        {% endfor %}
-
-                    </div>
-
-                {% endif %}
-
-
-                {% if draw.direct_entries %}
-
-                    <div class="round">
-
-                        <h3>Pases directos</h3>
-
-                        {% for player in draw.direct_entries %}
-
-                            <div class="match direct">
-
-                                <div class="player">
-                                    {{ player }}
                                 </div>
 
                             </div>
