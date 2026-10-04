@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Maker</title>
+</head>
+<body>
+
+    <h1>Tournament Maker</h1>
+
+    <form method="post">
+        <label for="participants">Participantes</label>
+        <br><br>
+
+        <textarea
+            id="participants"
+            name="participants"
+            rows="12"
+            cols="40"
+            placeholder="Un participante por línea"
+        >{{ participants_text }}</textarea>
+
+        <br><br>
+
+        <button type="submit">Sortear torneo</button>
+    </form>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    {% if draw %}
+        <hr>
+
+        <h2>Resultado del sorteo</h2>
+
+        <p>Total de participantes: {{ draw.total_participants }}</p>
+        <p>Cuadro principal: {{ draw.main_bracket_size }}</p>
+
+        {% if draw.preliminary_matches %}
+            <h3>Ronda previa</h3>
+
+            <ol>
+                {% for match in draw.preliminary_matches %}
+                    <li>{{ match.player1 }} vs {{ match.player2 }}</li>
+                {% endfor %}
+            </ol>
+        {% endif %}
+
+        {% if draw.direct_entries %}
+            <h3>Pases directos</h3>
+
+            <ul>
+                {% for player in draw.direct_entries %}
+                    <li>{{ player }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>
