@@ -69,7 +69,6 @@
 
             <div class="bracket">
 
-
                 {% if draw.preliminary_matches %}
 
                     <div class="round">
@@ -128,36 +127,39 @@
                 {% endif %}
 
 
-                <div class="round">
+                {% for round in draw.rounds %}
 
-                    <h3>Cuadro principal</h3>
+                    <div class="round">
 
-                    {% for match in draw.main_matches %}
+                        <h3>{{ round.name }}</h3>
 
-                        <div class="match">
+                        {% for match in round.matches %}
 
-                            <div class="player">
-                                {{ match.player1 }}
+                            <div class="match">
+
+                                <div class="player">
+                                    {{ match.player1 }}
+                                </div>
+
+                                <div class="vs">
+                                    VS
+                                </div>
+
+                                <div class="player">
+                                    {{ match.player2 }}
+                                </div>
+
+                                <div class="match-id">
+                                    {{ match.id }}
+                                </div>
+
                             </div>
 
-                            <div class="vs">
-                                VS
-                            </div>
+                        {% endfor %}
 
-                            <div class="player">
-                                {{ match.player2 }}
-                            </div>
+                    </div>
 
-                            <div class="match-id">
-                                {{ match.id }}
-                            </div>
-
-                        </div>
-
-                    {% endfor %}
-
-                </div>
-
+                {% endfor %}
 
             </div>
 
@@ -165,9 +167,7 @@
 
     {% endif %}
 
-
 </div>
 
 </body>
-
 </html>

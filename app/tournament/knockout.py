@@ -1,3 +1,4 @@
+import math
 import random
 
 
@@ -24,6 +25,18 @@ def main_bracket_size(num_participants):
     return size
 
 
+def round_name(num_players):
+    names = {
+        2: "Final",
+        4: "Semifinales",
+        8: "Cuartos de final",
+        16: "Octavos de final",
+        32: "Dieciseisavos de final",
+    }
+
+    return names.get(num_players, f"Ronda de {num_players}")
+
+
 def create_knockout_draw(participants):
     participants = validate_participants(participants)
 
@@ -35,11 +48,9 @@ def create_knockout_draw(participants):
 
     preliminary_matches = []
     direct_entries = []
-    main_entries = []
 
     if total == bracket_size:
         main_entries = shuffled
-
     else:
         preliminary_players = 2 * (total - bracket_size)
         direct_entries_count = total - preliminary_players
@@ -66,23 +77,48 @@ def create_knockout_draw(participants):
         main_entries = direct_entries + winners
         random.shuffle(main_entries)
 
-    main_matches = []
+    rounds = []
 
-    for i in range(0, len(main_entries), 2):
-        match_number = len(main_matches) + 1
+    current_entries = main_entries
+    current_players = len(current_entries)
+    round_index = 1
 
-        main_matches.append(
+    while current_players >= 2:
+        matches = []
+
+        for i in range(0, len(current_entries), 2):
+            match_id = f"R{round_index}M{len(matches) + 1}"
+
+            matches.append(
+                {
+                    "id": match_id,
+                    "player1": current_entries[i],
+                    "player2": current_entries[i + 1],
+                }
+            )
+
+        rounds.append(
             {
-                "id": f"M{match_number}",
-                "player1": main_entries[i],
-                "player2": main_entries[i + 1],
+                "name": round_name(current_players),
+                "matches": matches,
             }
         )
+
+        if current_players == 2:
+            break
+
+        current_entries = [
+            f"Ganador {match['id']}"
+            for match in matches
+        ]
+
+        current_players //= 2
+        round_index += 1
 
     return {
         "total_participants": total,
         "main_bracket_size": bracket_size,
         "preliminary_matches": preliminary_matches,
         "direct_entries": direct_entries,
-        "main_matches": main_matches,
+        "rounds": rounds,
     }

@@ -28,7 +28,7 @@ def test_duplicate_participants():
         validate_participants(["Ana", "ana"])
 
 
-def test_8_participants_no_preliminary_round():
+def test_8_participants():
     participants = [
         "Ana",
         "Luis",
@@ -45,7 +45,17 @@ def test_8_participants_no_preliminary_round():
     assert draw["main_bracket_size"] == 8
     assert len(draw["preliminary_matches"]) == 0
     assert len(draw["direct_entries"]) == 0
-    assert len(draw["main_matches"]) == 4
+
+    assert len(draw["rounds"]) == 3
+
+    assert draw["rounds"][0]["name"] == "Cuartos de final"
+    assert len(draw["rounds"][0]["matches"]) == 4
+
+    assert draw["rounds"][1]["name"] == "Semifinales"
+    assert len(draw["rounds"][1]["matches"]) == 2
+
+    assert draw["rounds"][2]["name"] == "Final"
+    assert len(draw["rounds"][2]["matches"]) == 1
 
 
 def test_7_participants():
@@ -65,6 +75,14 @@ def test_7_participants():
     assert len(draw["preliminary_matches"]) == 3
     assert len(draw["direct_entries"]) == 1
 
+    assert len(draw["rounds"]) == 2
+
+    assert draw["rounds"][0]["name"] == "Semifinales"
+    assert len(draw["rounds"][0]["matches"]) == 2
+
+    assert draw["rounds"][1]["name"] == "Final"
+    assert len(draw["rounds"][1]["matches"]) == 1
+
 
 def test_12_participants():
     participants = [f"Jugador {i}" for i in range(1, 13)]
@@ -74,3 +92,8 @@ def test_12_participants():
     assert draw["main_bracket_size"] == 8
     assert len(draw["preliminary_matches"]) == 4
     assert len(draw["direct_entries"]) == 4
+
+    assert len(draw["rounds"]) == 3
+    assert len(draw["rounds"][0]["matches"]) == 4
+    assert len(draw["rounds"][1]["matches"]) == 2
+    assert len(draw["rounds"][2]["matches"]) == 1
