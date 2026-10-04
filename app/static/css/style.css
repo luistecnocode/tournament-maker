@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -37,20 +37,37 @@ button {
 
 .bracket {
     display: flex;
-    gap: 40px;
-    align-items: flex-start;
+    gap: 45px;
+    align-items: stretch;
     overflow-x: auto;
+    padding-bottom: 20px;
 }
 
 .round {
-    min-width: 240px;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+.round h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.round-matches {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 18px;
 }
 
 .match {
     background: #eef1f5;
     border-radius: 8px;
     padding: 12px;
-    margin-bottom: 16px;
+    min-height: 80px;
+    box-sizing: border-box;
 }
 
 .player {
@@ -59,17 +76,12 @@ button {
 }
 
 .vs {
-    font-size: 12px;
+    font-size: 11px;
     color: #777;
-    margin: 4px 0;
-}
-
-.direct {
-    background: #e8f4ea;
 }
 
 .match-id {
     margin-top: 8px;
-    font-size: 11px;
+    font-size: 10px;
     color: #999;
 }

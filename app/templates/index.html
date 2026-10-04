@@ -74,29 +74,33 @@
 
                         <h3>Ronda previa</h3>
 
-                        {% for match in draw.preliminary_matches %}
+                        <div class="round-matches">
 
-                            <div class="match">
+                            {% for match in draw.preliminary_matches %}
 
-                                <div class="player">
-                                    {{ match.player1 }}
+                                <div class="match">
+
+                                    <div class="player">
+                                        {{ match.player1 }}
+                                    </div>
+
+                                    <div class="vs">
+                                        VS
+                                    </div>
+
+                                    <div class="player">
+                                        {{ match.player2 }}
+                                    </div>
+
+                                    <div class="match-id">
+                                        {{ match.id }}
+                                    </div>
+
                                 </div>
 
-                                <div class="vs">
-                                    VS
-                                </div>
+                            {% endfor %}
 
-                                <div class="player">
-                                    {{ match.player2 }}
-                                </div>
-
-                                <div class="match-id">
-                                    {{ match.id }}
-                                </div>
-
-                            </div>
-
-                        {% endfor %}
+                        </div>
 
                     </div>
 
@@ -109,29 +113,33 @@
 
                         <h3>{{ round.name }}</h3>
 
-                        {% for match in round.matches %}
+                        <div class="round-matches">
 
-                            <div class="match">
+                            {% for match in round.matches %}
 
-                                <div class="player">
-                                    {{ match.player1 }}
+                                <div class="match">
+
+                                    <div class="player">
+                                        {{ match.player1 }}
+                                    </div>
+
+                                    <div class="vs">
+                                        VS
+                                    </div>
+
+                                    <div class="player">
+                                        {{ match.player2 }}
+                                    </div>
+
+                                    <div class="match-id">
+                                        {{ match.id }}
+                                    </div>
+
                                 </div>
 
-                                <div class="vs">
-                                    VS
-                                </div>
+                            {% endfor %}
 
-                                <div class="player">
-                                    {{ match.player2 }}
-                                </div>
-
-                                <div class="match-id">
-                                    {{ match.id }}
-                                </div>
-
-                            </div>
-
-                        {% endfor %}
+                        </div>
 
                     </div>
 
