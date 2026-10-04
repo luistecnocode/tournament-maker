@@ -1,5 +1,8 @@
 from flask import Flask, redirect, render_template, request, url_for
 
+from flask import send_file
+from app.pdf_generator import generate_tournament_pdf
+
 from app.database import (
     delete_tournament,
     get_tournament,
@@ -85,3 +88,21 @@ def view_tournament(tournament_id):
 def remove_tournament(tournament_id):
     delete_tournament(tournament_id)
     return redirect(url_for("tournaments"))
+
+@app.route("/torneos/<int:tournament_id>/pdf")
+def download_tournament_pdf(tournament_id):
+    tournament = get_tournament(tournament_id)
+
+    if tournament is None:
+        return "Torneo no encontrado", 404
+
+    pdf_buffer = generate_tournament_pdf(tournament)
+
+    filename = f"{tournament['name']}.pdf"
+
+    return send_file(
+        pdf_buffer,
+        as_attachment=True,
+        download_name=filename,
+        mimetype="application/pdf",
+    )
