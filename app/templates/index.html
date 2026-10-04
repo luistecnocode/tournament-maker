@@ -1,63 +1,173 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Tournament Maker</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 </head>
+
 <body>
 
-    <h1>Tournament Maker</h1>
+<div class="container">
 
-    <form method="post">
-        <label for="participants">Participantes</label>
-        <br><br>
+    <div class="card">
 
-        <textarea
-            id="participants"
-            name="participants"
-            rows="12"
-            cols="40"
-            placeholder="Un participante por línea"
-        >{{ participants_text }}</textarea>
+        <h1>Tournament Maker</h1>
 
-        <br><br>
+        <form method="post">
 
-        <button type="submit">Sortear torneo</button>
-    </form>
+            <label for="participants">
+                Participantes
+            </label>
 
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
+            <br><br>
+
+            <textarea
+                id="participants"
+                name="participants"
+                placeholder="Un participante por línea"
+            >{{ participants_text }}</textarea>
+
+            <br>
+
+            <button type="submit">
+                Sortear torneo
+            </button>
+
+        </form>
+
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
+
+    </div>
+
 
     {% if draw %}
-        <hr>
 
-        <h2>Resultado del sorteo</h2>
+        <div class="card">
 
-        <p>Total de participantes: {{ draw.total_participants }}</p>
-        <p>Cuadro principal: {{ draw.main_bracket_size }}</p>
+            <h2>Cuadro del torneo</h2>
 
-        {% if draw.preliminary_matches %}
-            <h3>Ronda previa</h3>
+            <p>
+                Participantes:
+                {{ draw.total_participants }}
+            </p>
 
-            <ol>
-                {% for match in draw.preliminary_matches %}
-                    <li>{{ match.player1 }} vs {{ match.player2 }}</li>
-                {% endfor %}
-            </ol>
-        {% endif %}
+            <p>
+                Cuadro principal:
+                {{ draw.main_bracket_size }}
+            </p>
 
-        {% if draw.direct_entries %}
-            <h3>Pases directos</h3>
 
-            <ul>
-                {% for player in draw.direct_entries %}
-                    <li>{{ player }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+            <div class="bracket">
+
+
+                {% if draw.preliminary_matches %}
+
+                    <div class="round">
+
+                        <h3>Ronda previa</h3>
+
+                        {% for match in draw.preliminary_matches %}
+
+                            <div class="match">
+
+                                <div class="player">
+                                    {{ match.player1 }}
+                                </div>
+
+                                <div class="vs">
+                                    VS
+                                </div>
+
+                                <div class="player">
+                                    {{ match.player2 }}
+                                </div>
+
+                                <div class="match-id">
+                                    {{ match.id }}
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if draw.direct_entries %}
+
+                    <div class="round">
+
+                        <h3>Pases directos</h3>
+
+                        {% for player in draw.direct_entries %}
+
+                            <div class="match direct">
+
+                                <div class="player">
+                                    {{ player }}
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="round">
+
+                    <h3>Cuadro principal</h3>
+
+                    {% for match in draw.main_matches %}
+
+                        <div class="match">
+
+                            <div class="player">
+                                {{ match.player1 }}
+                            </div>
+
+                            <div class="vs">
+                                VS
+                            </div>
+
+                            <div class="player">
+                                {{ match.player2 }}
+                            </div>
+
+                            <div class="match-id">
+                                {{ match.id }}
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+            </div>
+
+        </div>
+
     {% endif %}
 
+
+</div>
+
 </body>
+
 </html>

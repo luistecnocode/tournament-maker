@@ -44,7 +44,8 @@ def test_8_participants_no_preliminary_round():
 
     assert draw["main_bracket_size"] == 8
     assert len(draw["preliminary_matches"]) == 0
-    assert len(draw["direct_entries"]) == 8
+    assert len(draw["direct_entries"]) == 0
+    assert len(draw["main_matches"]) == 4
 
 
 def test_7_participants():

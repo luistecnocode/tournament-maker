@@ -33,9 +33,13 @@ def create_knockout_draw(participants):
     total = len(shuffled)
     bracket_size = main_bracket_size(total)
 
+    preliminary_matches = []
+    direct_entries = []
+    main_entries = []
+
     if total == bracket_size:
-        preliminary_matches = []
-        direct_entries = shuffled
+        main_entries = shuffled
+
     else:
         preliminary_players = 2 * (total - bracket_size)
         direct_entries_count = total - preliminary_players
@@ -43,19 +47,42 @@ def create_knockout_draw(participants):
         direct_entries = shuffled[:direct_entries_count]
         preliminary = shuffled[direct_entries_count:]
 
-        preliminary_matches = []
-
         for i in range(0, len(preliminary), 2):
+            match_number = len(preliminary_matches) + 1
+
             preliminary_matches.append(
                 {
+                    "id": f"P{match_number}",
                     "player1": preliminary[i],
                     "player2": preliminary[i + 1],
                 }
             )
+
+        winners = [
+            f"Ganador {match['id']}"
+            for match in preliminary_matches
+        ]
+
+        main_entries = direct_entries + winners
+        random.shuffle(main_entries)
+
+    main_matches = []
+
+    for i in range(0, len(main_entries), 2):
+        match_number = len(main_matches) + 1
+
+        main_matches.append(
+            {
+                "id": f"M{match_number}",
+                "player1": main_entries[i],
+                "player2": main_entries[i + 1],
+            }
+        )
 
     return {
         "total_participants": total,
         "main_bracket_size": bracket_size,
         "preliminary_matches": preliminary_matches,
         "direct_entries": direct_entries,
+        "main_matches": main_matches,
     }
